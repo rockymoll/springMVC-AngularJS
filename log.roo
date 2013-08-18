@@ -1,0 +1,19 @@
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2013-04-21 13:15:18
+tailor activate --name web-simple
+project --topLevelPackage com.springsource.post --projectName post
+jpa setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY
+entity jpa --class ~.domain.Post --activeRecord false --testAutomatically
+field string --fieldName title --sizeMin 2 --notNull
+field string --fieldName text --sizeMin 2 --notNull
+repository jpa --interface ~.repository.PostRepository --entity ~.domain.Post
+service --interface ~.service.PostService --entity ~.domain.Post
+json all --deepSerialize
+web mvc json setup
+web mvc json all --package ~.web
+// script --file post.roo
+quit
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2013-04-21 13:15:30
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2013-04-21 13:16:48
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2013-04-24 20:25:00
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2013-07-03 19:21:31
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2013-07-07 18:20:02

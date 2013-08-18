@@ -1,0 +1,21 @@
+<!--p>There are {{posts.length}} posts</p>
+<div ng-repeat="post in posts">
+    <h3>{{post.title}}</h3>
+    <div>{{post.text}}</div>
+ </div-->
+<table class="table success table-striped table-bordered table-condensed table-hover">
+    <thead>
+    <tr>
+        <th class="id">Id&nbsp;</th>
+        <th class="name">Title&nbsp;</th>
+        <th class="description">Description&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="post in posts">
+        <td>{{post.id}}</td>
+        <td>{{post.title}}</td>
+        <td>{{post.text}}</td>
+    </tr>
+    </tbody>
+</table>

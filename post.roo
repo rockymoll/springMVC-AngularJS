@@ -1,0 +1,42 @@
+tailor activate --name web-simple
+// Create a new project
+project --topLevelPackage com.springsource.post --projectName post
+
+// Setup JPA persistence using EclipseLink and H2
+//jpa setup --provider ECLIPSELINK --dataPost H2_IN_MEMORY
+jpa setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY
+
+// Create domain entities
+entity jpa --class ~.domain.Post --activeRecord false --testAutomatically
+field string --fieldName title --sizeMin 2 --notNull
+field string --fieldName text --sizeMin 2 --notNull
+
+// Define a repository layer for persistence
+repository jpa --interface ~.repository.PostRepository --entity ~.domain.Post
+
+// Define a service/facade layer
+service --interface ~.service.PostService --entity ~.domain.Post
+
+// Offer JSON remoting for all domain types through Spring MVC
+json all --deepSerialize
+web mvc json setup
+web mvc json all --package ~.web
+
+//web mvc setup
+//web mvc all --package ~.web
+
+// Example scripts for JSON remoting:
+// curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{title: "title2",text:"text2"}' http://localhost:8181/postang/posts
+// curl -i -H "Accept: application/json" http://localhost:8181/postang/posts
+// curl -i -X DELETE -H "Accept: application/json" http://localhost:8181/postang/posts/1
+// curl -i -X PUT -H "Content-Type: application/json" -H "Accept: application/json" -d '{id:1,text:"text4",title:"title4",version:1}' http://localhost:8181/postang/posts
+
+// curl -i -H "Accept: application/json" http://localhost:8080/post/toppings/6
+// curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{name:"Napolitana",price:7.5,Post:{id:1},toppings:[{name: "Anchovy fillets"},{name: "Mozzarella"}]}' http://localhost:8080/post/pizzas
+// curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{name:"Stefan",total:7.5,address:"Sydney, AU",deliveryDate:1314595427866,id:{shopCountry:"AU",shopCity:"Sydney",shopName:"Pizza Pan 1"},pizzas:[{id:8,version:1}]}' http://localhost:8080/post/pizzaorders
+
+//curl -i -X PUT -H "Content-Type: application/json" -H "Accept: application/json" -d '{id:1,text:"text3",title:"title3",version:1}' http://localhost:8181/postang/posts
+
+// curl -i -X PUT -H "Content-Type: application/json" -H "Accept: application/json" -d '{id:1,text:"text4",title:"title4",version:1}' http://localhost:8181/postang/posts
+
+{"id":1,"text":"text1","title":"title2","version":1}
